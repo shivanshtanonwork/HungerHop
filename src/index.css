@@ -1,0 +1,81 @@
+/* General Layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Header/Navbar */
+.header {
+    height: 72px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo Container */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* Nav Items */
+.nav-items ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 32px;
+}
+
+.nav-items li {
+    font-size: 15.5px;
+    font-weight: 500;
+    color: #4a4a4a;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.nav-items li:hover {
+    color: #fc8019;
+    /* Swiggy's orange */
+}
+
+/* Optional underline effect on hover */
+.nav-items li::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #fc8019;
+    transition: width 0.3s ease;
+}
+
+.nav-items li:hover::after {
+    width: 100%;
+}
