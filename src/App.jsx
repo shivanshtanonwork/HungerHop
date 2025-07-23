@@ -21,11 +21,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="logo-container">
-        <img
-          className="logo"
-          src="/HungerHop-logo-transparent.png"
-          alt="logo"
-        />
+        <img className="logo" src="/HungerHop-logo.png" alt="logo" />
       </div>
       <div className="nav-items">
         <ul>
@@ -60,6 +56,10 @@ const Body = () => {
     <div className="body">
       <div className="search">Search</div>
       <div className="res-container">
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
         <RestaurantCard />
       </div>
     </div>
