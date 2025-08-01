@@ -1,17 +1,21 @@
-# Hunger Hop
+# Hunger Hop - A Food Ordering App
 
- ## Header
-  - Logo
-  - Nav Item
+## Header
+
+- Logo
+- Nav Item
+
 ## Body
-  - Search
-  - RestaurantContainer
-   - RestaurantCard
-    - Img
-    - Restaurant Name
-    - star rating , cuisines, delivery time
+
+- Search
+- RestaurantContainer
+- RestaurantCard
+- Img
+- Restaurant Name
+- star rating , cuisines, delivery time
+
 ## Footer
-  - Copyright
-  - links
-  - Contact
- 
+
+- Copyright
+- links
+- Contact
