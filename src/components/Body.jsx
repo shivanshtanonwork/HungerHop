@@ -1,45 +1,31 @@
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utils/mockData";
-import { useState } from "react";
+// import resList from "../utils/mockData";
+import { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
   // State Variable - Super powerful variable
-  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
-  // Normal JS Variable
-  // let listOfRestaurants = [
-  //   {
-  //     info: {
-  //       id: "118870",
-  //       name: "KFC",
-  //       cloudinaryImageId:
-  //         "RX_THUMBNAIL/IMAGES/VENDOR/2024/12/9/1f24c270-270b-4a97-aa62-57fdec2bfc38_118870.JPG",
-  //       costForTwo: "₹400 for two",
-  //       cuisines: ["Burgers", "Fast Food", "Rolls & Wraps"],
-  //       avgRating: 3.5,
-  //       avgRatingString: "3.5",
-  //       sla: {
-  //         deliveryTime: 41,
-  //         slaString: "40-45 mins",
-  //       },
-  //     },
-  //   },
-  //   {
-  //     info: {
-  //       id: "118871",
-  //       name: "Dominos",
-  //       cloudinaryImageId:
-  //         "RX_THUMBNAIL/IMAGES/VENDOR/2024/12/9/1f24c270-270b-4a97-aa62-57fdec2bfc38_118870.JPG",
-  //       costForTwo: "₹400 for two",
-  //       cuisines: ["Burgers", "Fast Food", "Rolls & Wraps"],
-  //       avgRating: 4.3,
-  //       avgRatingString: "4.3",
-  //       sla: {
-  //         deliveryTime: 41,
-  //         slaString: "40-45 mins",
-  //       },
-  //     },
-  //   },
-  // ];
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9395989&lng=77.728955&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+    console.log(json);
+    setListOfRestaurants(
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+  };
+
+  if (listOfRestaurants.length === 0) {
+    return <Shimmer />;
+  }
+
   return (
     <div className="body">
       <div className="filter">
