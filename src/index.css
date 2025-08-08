@@ -83,6 +83,28 @@ body {
     width: 100%;
 }
 
+/* Login Button */
+.nav-items button {
+    padding: 8px 18px;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    background-color: #6a0dad;
+    /* Same purple as filter-btn */
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(106, 13, 173, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-items button:hover {
+    background-color: #5800a3;
+    /* Darker purple on hover */
+    transform: translateY(-2px);
+}
+
+
 /* Body Layout */
 .body {
     padding: 20px;

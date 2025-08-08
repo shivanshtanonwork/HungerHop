@@ -1,5 +1,7 @@
 # Hunger Hop - A Food Ordering App
 
+<img src="./src/assets/Screenshot 2025-08-08 170741.png" alt="Homepage" width="500"/>
+
 ## Header
 
 - Logo
