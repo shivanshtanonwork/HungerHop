@@ -16,7 +16,7 @@ export default function Header() {
           <li>Cart</li>
           <button
             onClick={() => {
-              setBtnName("Logout");
+              btnName === "Login" ? setBtnName("Logout") : setBtnName("Login");
             }}
           >
             {btnName}
