@@ -1,37 +1,53 @@
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
-import js from "@eslint/js";
+import { useParams } from "react-router-dom";
+import { MENU_API } from "../utils/constants";
 
 const RestaurantMenu = () => {
   const [resInfo, setResInfo] = useState(null);
+
+  const { resId } = useParams();
 
   useEffect(() => {
     fetchMenu();
   }, []);
 
   const fetchMenu = async () => {
-    const data = await fetch(
-      "https://corsproxy.io/https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9395989&lng=77.728955&restaurantId=385794&catalog_qa=undefined&submitAction=ENTER"
-    );
+    const data = await fetch(MENU_API + resId);
     const json = await data.json();
-    console.log(json);
+    // console.log(json);
     setResInfo(json.data);
   };
 
-  const { name, cuisines, cloudinaryImageId, costForTwoMessage } =
+  if (resInfo === null) return <Shimmer />;
+
+  const { name, cuisines, costForTwoMessage } =
     resInfo?.cards[2]?.card?.card?.info || {};
-  return resInfo === null ? (
-    <Shimmer />
-  ) : (
+
+  const itemCards =
+    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card
+      ?.itemCards || {};
+
+  console.log(itemCards);
+
+  return (
     <div className="menu">
       <h1>{name}</h1>
       <p>
         {cuisines.join(", ")} - {costForTwoMessage}
       </p>
+      <h2>Menu</h2>
       <ul>
-        <li>Biryani</li>
-        <li>Diet Coke</li>
-        <li>Burgers</li>
+        {itemCards.length > 0 ? (
+          itemCards.map((item) => (
+            <li key={item.card.info.id}>
+              {item.card.info.name} – Rs{" "}
+              {(item.card.info.price || item.card.info.defaultPrice) / 100}
+            </li>
+          ))
+        ) : (
+          <li>No items available</li>
+        )}
       </ul>
     </div>
   );
