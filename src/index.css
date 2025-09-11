@@ -83,6 +83,17 @@ body {
     width: 100%;
 }
 
+.nav-items a {
+    text-decoration: none;
+    color: inherit;
+    /* takes the li color (#4a4a4a or purple on hover) */
+}
+
+.nav-items a:hover {
+    color: purple;
+    /* keeps your hover effect */
+}
+
 /* Login Button */
 .nav-items button {
     padding: 8px 18px;
@@ -147,9 +158,11 @@ body {
     /* justify-content: center; */
     flex-direction: column;
     align-items: center;
-    gap: 16px;  /* space between search and button */
+    gap: 16px;
+    /* space between search and button */
     margin-bottom: 24px;
-    flex-wrap: wrap; /* ensures responsiveness */
+    flex-wrap: wrap;
+    /* ensures responsiveness */
 }
 
 /* Search box container */
@@ -194,13 +207,14 @@ body {
 }
 
 @media (max-width: 600px) {
-  .search-filter {
-    flex-direction: column;
-    gap: 12px;
-  }
-  .search-box {
-    width: 100%;
-  }
+    .search-filter {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
 }
 
 
@@ -370,4 +384,3 @@ body {
     background: linear-gradient(to right, #f0f0f0 0%, #e6e6e6 50%, #f0f0f0 100%);
     animation: shimmer 1.2s infinite;
 }
-
