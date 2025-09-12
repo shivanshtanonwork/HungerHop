@@ -384,3 +384,38 @@ body {
     background: linear-gradient(to right, #f0f0f0 0%, #e6e6e6 50%, #f0f0f0 100%);
     animation: shimmer 1.2s infinite;
 }
+
+.user-card {
+  padding: 16px 20px;
+  border: 1px solid #ddd;         /* softer border */
+  border-radius: 12px;            /* rounded corners */
+  background-color: #fff;         /* clean white background */
+  max-width: 320px;               /* keep card compact */
+  margin: 20px auto;              /* center on page */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* subtle shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;             /* center text */
+}
+
+.user-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.user-card h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.user-card h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.user-card h4 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+}
