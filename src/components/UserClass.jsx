@@ -9,6 +9,12 @@ class UserClass extends React.Component {
       count2: 2,
     };
   }
+
+  componentDidMount() {
+    console.log("Child Component is called");
+
+    //api call
+  }
   render() {
     const { name, location } = this.props;
     const { count, count2 } = this.state;

@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const User = ({ name }) => {
   const [count, setCount] = useState({ count1: 0, count2: 1 });
   const [counts, setCounts] = useState([0, 1]);
+
+  useEffect(() => {
+    // api Call
+  }, []);
 
   const handleClick = () => {
     setCount((prev) => ({
