@@ -387,14 +387,14 @@ body {
 
 .user-card {
   padding: 16px 20px;
-  border: 1px solid #ddd;         /* softer border */
-  border-radius: 12px;            /* rounded corners */
-  background-color: #fff;         /* clean white background */
-  max-width: 320px;               /* keep card compact */
-  margin: 20px auto;              /* center on page */
+  border: 1px solid #ddd;              /* softer border */
+  border-radius: 12px;                 /* rounded corners */
+  background-color: #fff;              /* clean white background */
+  max-width: 320px;                    /* keep card compact */
+  margin: 20px auto;                   /* center on page */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* subtle shadow */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-align: center;             /* center text */
+  text-align: center;                  /* center text */
 }
 
 .user-card:hover {
@@ -402,6 +402,17 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
 }
 
+/* avatar image */
+.user-card img {
+  width: 100px;              /* fixed size */
+  height: 100px;
+  border-radius: 50%;        /* circle avatar */
+  object-fit: cover;         /* crop nicely */
+  margin-bottom: 12px;       /* space below image */
+  border: 2px solid #eee;    /* subtle border */
+}
+
+/* text styles */
 .user-card h2 {
   font-size: 20px;
   margin-bottom: 8px;

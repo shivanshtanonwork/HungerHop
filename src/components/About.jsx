@@ -7,7 +7,7 @@ class About extends Component {
     super(props);
   }
   componentDidMount() {
-    console.log("Parent Component is called");
+    // console.log("Parent Component is called");
   }
   render() {
     return (
