@@ -4,4 +4,5 @@ export const CDN_URL =
 export const LOGO_URL =
   "https://res.cloudinary.com/djxec7fue/image/upload/v1754046291/HungerHop-logo_mak8yf.png";
 
-export const MENU_API = "https://corsproxy.io/https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9395989&lng=77.728955&restaurantId="
+export const MENU_API =
+  "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9395989&lng=77.728955&restaurantId=";
