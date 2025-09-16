@@ -7,36 +7,55 @@ class UserClass extends React.Component {
       userInfo: {
         name: "Dummy",
         location: "Default",
-        avatar_url: "https://github.com/shivanshtanonwork",
-        login: "dummy-usrname",
+        avatar_url: "https://avatars.githubusercontent.com/u/0?v=4",
+        login: "dummy-username",
       },
     };
   }
 
   async componentDidMount() {
-    // console.log("Child Component is called");
     const data = await fetch("https://api.github.com/users/shivanshtanonwork");
     const json = await data.json();
-    // console.log(json);
     this.setState({
       userInfo: json,
     });
   }
+
   componentDidUpdate() {
-    console.log("Component Did update");
+    console.log("Component Did Update");
   }
+
   componentWillUnmount() {
-    console.log("component unmount");
+    console.log("Component Unmount");
   }
+
   render() {
     const { name, location, avatar_url, login } = this.state.userInfo;
-    // debugger;
+
     return (
-      <div className="user-card">
-        <img src={avatar_url} alt="avatar" />
-        <h2>Name: {name}</h2>
-        <h3>Location: {location}</h3>
-        <h4>Contact: {login}</h4>
+      <div className="flex flex-col items-center text-center bg-white shadow-lg rounded-2xl p-6 w-80 hover:shadow-xl transition-shadow duration-300">
+        {/* Avatar */}
+        <img
+          src={avatar_url}
+          alt="avatar"
+          className="w-28 h-28 rounded-full border-4 border-purple-600 shadow-md mb-4"
+        />
+
+        {/* Name */}
+        <h2 className="text-xl font-semibold text-gray-800">{name}</h2>
+
+        {/* Location */}
+        <h3 className="text-sm text-gray-500">{location || "Not Available"}</h3>
+
+        {/* Contact (GitHub username) */}
+        <a
+          href={`https://github.com/${login}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition-colors"
+        >
+          @{login}
+        </a>
       </div>
     );
   }
