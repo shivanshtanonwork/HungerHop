@@ -1,6 +1,7 @@
 // import User from "./User";
+import UserContext from "../utils/UserContext";
 import UserClass from "./UserClass";
-import { Component } from "react";
+import { Component, useContext } from "react";
 
 class About extends Component {
   constructor(props) {
@@ -29,12 +30,13 @@ class About extends Component {
 
           {/* User Info Card (centered) */}
           <div className="flex justify-center">
-            <UserClass
-              name={"Shivansh Tandon (class)"}
-              location={"Jabalpur, MP"}
-            />
+            <UserClass name={"Shivansh Tandon"} location={"Jabalpur, MP"} />
           </div>
-
+          <div>
+            <UserContext.Consumer>
+              {({ loggedInUser }) => <h1>{loggedInUser}</h1>}
+            </UserContext.Consumer>
+          </div>
           <p className="text-gray-500 text-sm mt-6">
             Built with ❤️ using React, Tailwind, and modern web technologies.
           </p>

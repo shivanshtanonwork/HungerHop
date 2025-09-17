@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import { CDN_URL } from "../utils/constants";
+import UserContext from "../utils/UserContext";
 
 const RestaurantCard = ({ resData }) => {
   const { cloudinaryImageId, name, cuisines, avgRating, sla, costForTwo } =
     resData.info;
+
+  const { loggedInUser } = useContext(UserContext);
 
   return (
     <div className="w-56 p-3 rounded-xl bg-white shadow-md hover:scale-105 transition-transform duration-200 cursor-pointer">
@@ -18,11 +22,14 @@ const RestaurantCard = ({ resData }) => {
       <h4 className="text-sm text-gray-700">{avgRating} ⭐</h4>
       <h5 className="text-sm text-gray-500">{sla.slaString}</h5>
       <h4 className="text-sm font-medium text-gray-700">{costForTwo}</h4>
+      <h4 className="text-sm font-medium text-gray-700">
+        User : {loggedInUser}
+      </h4>
     </div>
   );
 };
 
-// Higher orde component
+// Higher order component
 
 export const withDiscountLabel = (RestaurantCard) => {
   return (props) => {

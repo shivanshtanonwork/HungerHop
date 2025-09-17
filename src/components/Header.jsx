@@ -9,7 +9,7 @@ export default function Header() {
   const onlineStatus = useOnlineStatus();
 
   const { loggedInUser } = useContext(UserContext);
-  console.log(loggedInUser);
+  // console.log(loggedInUser);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
