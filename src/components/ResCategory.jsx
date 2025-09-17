@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ItemList from "./ItemList";
 
-const ResCategory = ({ data, showItems, setShowIndex }) => {
+const ResCategory = ({ data, showItems, setShowIndex, dummy }) => {
   const handleClick = () => {
     setShowIndex();
   };
@@ -33,7 +33,7 @@ const ResCategory = ({ data, showItems, setShowIndex }) => {
         {/* Items */}
         {showItems && (
           <div className="px-6 py-4 bg-white border-t border-gray-100 space-y-3">
-            <ItemList items={data.itemCards} />
+            <ItemList items={data.itemCards} dummy={dummy} />
           </div>
         )}
       </div>
