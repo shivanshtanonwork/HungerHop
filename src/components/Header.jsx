@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 export default function Header() {
   const [btnName, setBtnName] = useState("Login");
   const onlineStatus = useOnlineStatus();
+
+  const { loggedInUser } = useContext(UserContext);
+  console.log(loggedInUser);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
@@ -76,6 +80,10 @@ export default function Header() {
               >
                 {btnName}
               </button>
+            </li>
+            <li className="relative group cursor-pointer hover:text-purple-700">
+              {loggedInUser}
+              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-purple-700 transition-all group-hover:w-full"></span>
             </li>
           </ul>
         </div>
