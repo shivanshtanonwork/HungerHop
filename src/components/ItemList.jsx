@@ -1,7 +1,7 @@
 import React from "react";
 import { CDN_URL } from "../utils/constants";
 
-const ItemList = ({ items }) => {
+const ItemList = ({ items, dummy }) => {
   return (
     <div className="divide-y divide-gray-100">
       {items.map((item) => (
