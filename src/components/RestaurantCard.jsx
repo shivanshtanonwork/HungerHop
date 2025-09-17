@@ -22,4 +22,29 @@ const RestaurantCard = ({ resData }) => {
   );
 };
 
+// Higher orde component
+
+export const withDiscountLabel = (RestaurantCard) => {
+  return (props) => {
+    const { resData } = props;
+    return (
+      <div className="relative">
+        <label
+          className="absolute top-2 left-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white 
+            px-2 py-1 text-[11px] font-semibold rounded-full shadow-md tracking-wide 
+            uppercase"
+        >
+          <span className="font-bold">
+            {resData.info?.aggregatedDiscountInfoV3?.header}
+          </span>{" "}
+          <span className="opacity-90">
+            {resData.info?.aggregatedDiscountInfoV3?.subHeader}
+          </span>
+        </label>
+        <RestaurantCard {...props} />
+      </div>
+    );
+  };
+};
+
 export default RestaurantCard;

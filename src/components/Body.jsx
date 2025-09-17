@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withDiscountLabel } from "./RestaurantCard";
 // import resList from "../utils/mockData";
 import { useState } from "react";
 import Shimmer from "./Shimmer";
@@ -10,7 +10,11 @@ const Body = () => {
   const { listOfRestaurants, filteredRestaurant, setFilteredRestaurant } =
     useRestaurantList(); // custom hook
 
+  console.log(listOfRestaurants);
+
   const [searchText, setSearchText] = useState("");
+
+  const RestaurantCardDiscount = withDiscountLabel(RestaurantCard);
 
   const onlineStatus = useOnlineStatus();
   if (onlineStatus === false)
@@ -70,7 +74,11 @@ const Body = () => {
             to={"restaurants/" + restaurant.info.id}
             className="no-underline text-inherit"
           >
-            <RestaurantCard resData={restaurant} />
+            {restaurant.info.aggregatedDiscountInfoV3 ? (
+              <RestaurantCardDiscount resData={restaurant} />
+            ) : (
+              <RestaurantCard resData={restaurant} />
+            )}
           </Link>
         ))}
       </div>
