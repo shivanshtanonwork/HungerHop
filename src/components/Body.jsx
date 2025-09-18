@@ -1,10 +1,11 @@
 import RestaurantCard, { withDiscountLabel } from "./RestaurantCard";
 // import resList from "../utils/mockData";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useRestaurantList from "../utils/useRestaurantList";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const { listOfRestaurants, filteredRestaurant, setFilteredRestaurant } =
@@ -23,6 +24,8 @@ const Body = () => {
         Looks like you are offline. Please check your internet connection
       </h1>
     );
+
+  const { setUserName, loggedInUser } = useContext(UserContext);
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
@@ -64,6 +67,14 @@ const Body = () => {
         >
           ⭐ Top Rated Restaurants
         </button>
+        {/* Input Box */}
+        <label for="">UserName :</label>
+        <input
+          type="text"
+          className="w-64 px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600"
+          value={loggedInUser}
+          onChange={(e) => setUserName(e.target.value)}
+        />
       </div>
 
       {/* Restaurant Cards */}
