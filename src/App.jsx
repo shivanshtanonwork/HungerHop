@@ -6,17 +6,30 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestaurantMenu from "./components/RestaurantMenu";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useContext, useEffect, useState } from "react";
 import Shimmer from "./components/Shimmer";
+import UserContext from "./utils/UserContext";
 
 const Grocery = lazy(() => import("./components/Grocery")); //lazy loading
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+
+  //authentication
+  useEffect(() => {
+    //Make an api call and send username and password
+    const data = {
+      name: "Shivansh",
+    };
+    setUserName(data.name);
+  }, []);
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <UserContext.Provider value={{ loggedInUser: userName }}>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </UserContext.Provider>
   );
 };
 
