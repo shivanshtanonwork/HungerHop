@@ -68,7 +68,7 @@ const Body = () => {
           ⭐ Top Rated Restaurants
         </button>
         {/* Input Box */}
-        <label for="">UserName :</label>
+        <label>UserName :</label>
         <input
           type="text"
           className="w-64 px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600"
