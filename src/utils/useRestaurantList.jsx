@@ -9,7 +9,9 @@ const useRestaurantList = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch("https://namastedev.com/api/v1/listRestaurants");
+    const data = await fetch(
+      "https://corsproxy.io/https://namastedev.com/api/v1/listRestaurants"
+    );
     const json = await data.json();
     console.log(json);
 
