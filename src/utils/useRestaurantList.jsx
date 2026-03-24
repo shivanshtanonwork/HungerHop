@@ -15,6 +15,9 @@ const useRestaurantList = () => {
       if (!response.ok) {
         throw new Error(`Restaurant list request failed: ${response.status}`);
       }
+    const data = await fetch(RESTAURANT_LIST_API);
+    const json = await data.json();
+    console.log(json);
 
       const json = await response.json();
       const restaurants =
