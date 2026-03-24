@@ -10,15 +10,31 @@ const useRestaurantList = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(RESTAURANT_LIST_API);
-    const json = await data.json();
-    console.log(json);
+    try {
+      if (
+        typeof RESTAURANT_LIST_API !== "string" ||
+        RESTAURANT_LIST_API.trim() === ""
+      ) {
+        throw new Error("Invalid restaurant list API URL.");
+      }
 
-    const restaurants =
-      json.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants;
+      const data = await fetch(RESTAURANT_LIST_API);
+      if (!data.ok) {
+        throw new Error(`Restaurant list request failed with ${data.status}.`);
+      }
 
-    setListOfRestaurants(restaurants);
-    setFilteredRestaurant(restaurants);
+      const json = await data.json();
+      const restaurants =
+        json?.data?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants ?? [];
+
+      setListOfRestaurants(restaurants);
+      setFilteredRestaurant(restaurants);
+    } catch (error) {
+      console.error("Failed to fetch restaurant list:", error);
+      setListOfRestaurants([]);
+      setFilteredRestaurant([]);
+    }
   };
 
   return { listOfRestaurants, filteredRestaurant, setFilteredRestaurant };
