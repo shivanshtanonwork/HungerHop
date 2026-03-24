@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -6,7 +6,6 @@ import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 
 export default function Header() {
-  const [btnName, setBtnName] = useState("Login");
   const onlineStatus = useOnlineStatus();
 
   const { loggedInUser } = useContext(UserContext);
@@ -75,16 +74,13 @@ export default function Header() {
               <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-purple-700 transition-all group-hover:w-full"></span>
             </li>
 
-            {/* Login/Logout Button */}
             <li>
-              <button
-                onClick={() =>
-                  setBtnName(btnName === "Login" ? "Logout" : "Login")
-                }
-                className="ml-4 px-4 py-2 rounded-lg bg-purple-700 text-white shadow-md hover:bg-purple-800 transition-colors transform hover:-translate-y-0.5"
+              <Link
+                to="/auth"
+                className="ml-4 inline-block rounded-lg bg-purple-700 px-4 py-2 text-white shadow-md transition-colors hover:bg-purple-800"
               >
-                {btnName}
-              </button>
+                Login / Signup
+              </Link>
             </li>
             <li className="relative group cursor-pointer hover:text-purple-700">
               {loggedInUser}
