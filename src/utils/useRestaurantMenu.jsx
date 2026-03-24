@@ -3,9 +3,13 @@ import { MENU_API } from "./constants";
 
 const useRestaurantMenu = (resId) => {
   const [resInfo, setResInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   //fetchData
   useEffect(() => {
     if (!resId) {
+      setIsLoading(false);
+      setError(new Error("Missing restaurant id."));
       return;
     }
     fetchData();
@@ -13,6 +17,9 @@ const useRestaurantMenu = (resId) => {
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
+      setError(null);
+
       if (typeof MENU_API !== "string" || MENU_API.trim() === "") {
         throw new Error("Invalid menu API URL.");
       }
@@ -41,10 +48,13 @@ const useRestaurantMenu = (resId) => {
     } catch (error) {
       console.error("Failed to fetch restaurant menu:", error);
       setResInfo(null);
+      setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  return resInfo;
+  return { resInfo, isLoading, error };
 };
 
 export default useRestaurantMenu;

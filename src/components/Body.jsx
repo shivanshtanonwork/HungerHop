@@ -8,8 +8,13 @@ import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
 
 const Body = () => {
-  const { listOfRestaurants, filteredRestaurant, setFilteredRestaurant } =
-    useRestaurantList(); // custom hook
+  const {
+    listOfRestaurants,
+    filteredRestaurant,
+    setFilteredRestaurant,
+    isLoading,
+    error,
+  } = useRestaurantList(); // custom hook
 
   console.log(listOfRestaurants);
 
@@ -27,7 +32,24 @@ const Body = () => {
 
   const { setUserName, loggedInUser } = useContext(UserContext);
 
-  return listOfRestaurants.length === 0 ? (
+  if (error) {
+    return (
+      <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-red-200 bg-red-50 p-6 text-center shadow-sm">
+        <h2 className="text-xl font-semibold text-red-700">
+          We could not load restaurants.
+        </h2>
+        <p className="mt-2 text-sm text-red-600">
+          This is often a CORS or API availability issue when the frontend is
+          deployed and the browser calls a different origin directly.
+        </p>
+        <p className="mt-3 break-all text-xs text-red-500">
+          {error.message}
+        </p>
+      </div>
+    );
+  }
+
+  return isLoading ? (
     <Shimmer />
   ) : (
     <div className="min-h-screen bg-gray-50 p-6">

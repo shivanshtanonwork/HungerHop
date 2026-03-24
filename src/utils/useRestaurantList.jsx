@@ -4,6 +4,8 @@ import { RESTAURANT_LIST_API } from "./constants";
 const useRestaurantList = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -11,6 +13,9 @@ const useRestaurantList = () => {
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
+      setError(null);
+
       if (
         typeof RESTAURANT_LIST_API !== "string" ||
         RESTAURANT_LIST_API.trim() === ""
@@ -44,10 +49,19 @@ const useRestaurantList = () => {
       console.error("Failed to fetch restaurant list:", error);
       setListOfRestaurants([]);
       setFilteredRestaurant([]);
+      setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  return { listOfRestaurants, filteredRestaurant, setFilteredRestaurant };
+  return {
+    listOfRestaurants,
+    filteredRestaurant,
+    setFilteredRestaurant,
+    isLoading,
+    error,
+  };
 };
 
 export default useRestaurantList;
