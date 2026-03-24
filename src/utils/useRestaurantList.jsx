@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { RESTAURANT_LIST_API } from "./constants";
 
 const useRestaurantList = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -9,9 +10,7 @@ const useRestaurantList = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://corsproxy.io/https://namastedev.com/api/v1/listRestaurants"
-    );
+    const data = await fetch(RESTAURANT_LIST_API);
     const json = await data.json();
     console.log(json);
 
