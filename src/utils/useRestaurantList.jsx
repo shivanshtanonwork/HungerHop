@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { RESTAURANT_LIST_API } from "./constants";
 
 const useRestaurantList = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -9,17 +10,24 @@ const useRestaurantList = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://corsproxy.io/https://namastedev.com/api/v1/listRestaurants"
-    );
-    const json = await data.json();
-    console.log(json);
+    try {
+      const response = await fetch(RESTAURANT_LIST_API);
+      if (!response.ok) {
+        throw new Error(`Restaurant list request failed: ${response.status}`);
+      }
 
-    const restaurants =
-      json.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants;
+      const json = await response.json();
+      const restaurants =
+        json?.data?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants ?? [];
 
-    setListOfRestaurants(restaurants);
-    setFilteredRestaurant(restaurants);
+      setListOfRestaurants(restaurants);
+      setFilteredRestaurant(restaurants);
+    } catch (error) {
+      console.error("Failed to fetch restaurant list", error);
+      setListOfRestaurants([]);
+      setFilteredRestaurant([]);
+    }
   };
 
   return { listOfRestaurants, filteredRestaurant, setFilteredRestaurant };
