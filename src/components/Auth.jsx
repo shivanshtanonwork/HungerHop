@@ -5,7 +5,7 @@ const inputBaseClass =
 const inputErrorClass = "border-red-500 focus:border-red-500 focus:ring-red-500";
 const errorTextClass = "mt-1 text-xs text-red-600";
 
-const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const isValidPhone = (phone) => /^\d{10}$/.test(phone);
 
 const LoginForm = () => {
