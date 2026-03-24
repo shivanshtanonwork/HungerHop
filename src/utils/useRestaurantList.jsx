@@ -23,6 +23,16 @@ const useRestaurantList = () => {
         throw new Error(`Restaurant list request failed with ${data.status}.`);
       }
 
+      const contentType = data.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        const text = await data.text();
+        throw new Error(
+          `Restaurant list response is not JSON from ${RESTAURANT_LIST_API}. Received content-type "${contentType}". Body starts with: ${text
+            .slice(0, 120)
+            .replace(/\s+/g, " ")}`
+        );
+      }
+
       const json = await data.json();
       const restaurants =
         json?.data?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle

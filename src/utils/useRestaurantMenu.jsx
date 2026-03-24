@@ -26,6 +26,16 @@ const useRestaurantMenu = (resId) => {
         throw new Error(`Restaurant menu request failed with ${data.status}.`);
       }
 
+      const contentType = data.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        const text = await data.text();
+        throw new Error(
+          `Restaurant menu response is not JSON from ${menuUrl}. Received content-type "${contentType}". Body starts with: ${text
+            .slice(0, 120)
+            .replace(/\s+/g, " ")}`
+        );
+      }
+
       const json = await data.json();
       setResInfo(json?.data ?? null);
     } catch (error) {
