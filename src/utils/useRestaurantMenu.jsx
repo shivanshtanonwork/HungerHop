@@ -3,16 +3,25 @@ import { MENU_API } from "./constants";
 
 const useRestaurantMenu = (resId) => {
   const [resInfo, setResInfo] = useState(null);
-  //fetchData
-  useEffect(() => {
-    fetchData();
-  }, []);
 
-  const fetchData = async () => {
-    const data = await fetch(MENU_API + resId);
-    const json = await data.json();
-    setResInfo(json.data);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(MENU_API + resId);
+        if (!response.ok) {
+          throw new Error(`Restaurant menu request failed: ${response.status}`);
+        }
+
+        const json = await response.json();
+        setResInfo(json?.data ?? null);
+      } catch (error) {
+        console.error("Failed to fetch restaurant menu", error);
+        setResInfo(null);
+      }
+    };
+
+    fetchData();
+  }, [resId]);
 
   return resInfo;
 };

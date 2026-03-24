@@ -10,15 +10,27 @@ const useRestaurantList = () => {
   }, []);
 
   const fetchData = async () => {
+    try {
+      const response = await fetch(RESTAURANT_LIST_API);
+      if (!response.ok) {
+        throw new Error(`Restaurant list request failed: ${response.status}`);
+      }
     const data = await fetch(RESTAURANT_LIST_API);
     const json = await data.json();
     console.log(json);
 
-    const restaurants =
-      json.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants;
+      const json = await response.json();
+      const restaurants =
+        json?.data?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants ?? [];
 
-    setListOfRestaurants(restaurants);
-    setFilteredRestaurant(restaurants);
+      setListOfRestaurants(restaurants);
+      setFilteredRestaurant(restaurants);
+    } catch (error) {
+      console.error("Failed to fetch restaurant list", error);
+      setListOfRestaurants([]);
+      setFilteredRestaurant([]);
+    }
   };
 
   return { listOfRestaurants, filteredRestaurant, setFilteredRestaurant };
