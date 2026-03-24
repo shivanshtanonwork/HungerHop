@@ -6,6 +6,7 @@ export const LOGO_URL =
 
 const ENV_API_BASE = (import.meta.env.VITE_API_BASE_URL || "").trim();
 const FALLBACK_PROD_API_BASE = "https://namastedev.com";
+const API_VERSION_PREFIX = "/api/v1";
 
 const API_BASE_URL =
   ENV_API_BASE || (import.meta.env.DEV ? "" : FALLBACK_PROD_API_BASE);
@@ -14,5 +15,9 @@ const withApiBase = (path) => `${API_BASE_URL}${path}`;
 
 // In dev we can use Vite proxy via relative URLs.
 // In production (Render), use absolute API base URL.
-export const RESTAURANT_LIST_API = withApiBase("/api/v1/listRestaurants");
-export const MENU_API = withApiBase("/api/v1/listRestaurantMenu/");
+export const RESTAURANT_LIST_API = withApiBase(
+  `${API_VERSION_PREFIX}/listRestaurants`,
+);
+export const MENU_API = withApiBase(
+  `${API_VERSION_PREFIX}/listRestaurantMenu/`,
+);
