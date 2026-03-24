@@ -2,13 +2,43 @@ import { useState } from "react";
 
 const inputBaseClass =
   "w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600";
+const inputErrorClass = "border-red-500 focus:border-red-500 focus:ring-red-500";
+const errorTextClass = "mt-1 text-xs text-red-600";
+
+const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+const isValidPhone = (phone) => /^\d{10}$/.test(phone);
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const nextErrors = {};
+
+    if (!email.trim()) {
+      nextErrors.email = "Email is required.";
+    } else if (!isValidEmail(email)) {
+      nextErrors.email = "Please enter a valid email address.";
+    }
+
+    if (!password) {
+      nextErrors.password = "Password is required.";
+    } else if (password.length < 6) {
+      nextErrors.password = "Password must be at least 6 characters.";
+    }
+
+    return nextErrors;
+  };
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    const nextErrors = validateForm();
+    setErrors(nextErrors);
+  };
 
   return (
-    <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+    <form className="space-y-4" onSubmit={handleLoginSubmit} noValidate>
       <div>
         <label className="mb-1 block text-sm font-medium text-gray-700">Email</label>
         <input
@@ -16,9 +46,9 @@ const LoginForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
-          className={inputBaseClass}
-          required
+          className={`${inputBaseClass} ${errors.email ? inputErrorClass : ""}`}
         />
+        {errors.email ? <p className={errorTextClass}>{errors.email}</p> : null}
       </div>
 
       <div>
@@ -28,9 +58,9 @@ const LoginForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter your password"
-          className={inputBaseClass}
-          required
+          className={`${inputBaseClass} ${errors.password ? inputErrorClass : ""}`}
         />
+        {errors.password ? <p className={errorTextClass}>{errors.password}</p> : null}
       </div>
 
       <button
@@ -49,9 +79,50 @@ const SignupForm = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const nextErrors = {};
+
+    if (!fullName.trim()) {
+      nextErrors.fullName = "Full name is required.";
+    }
+
+    if (!email.trim()) {
+      nextErrors.email = "Email is required.";
+    } else if (!isValidEmail(email)) {
+      nextErrors.email = "Please enter a valid email address.";
+    }
+
+    if (!phone.trim()) {
+      nextErrors.phone = "Phone number is required.";
+    } else if (!isValidPhone(phone)) {
+      nextErrors.phone = "Phone number must be exactly 10 digits.";
+    }
+
+    if (!password) {
+      nextErrors.password = "Password is required.";
+    } else if (password.length < 8) {
+      nextErrors.password = "Password must be at least 8 characters.";
+    }
+
+    if (!confirmPassword) {
+      nextErrors.confirmPassword = "Please confirm your password.";
+    } else if (confirmPassword !== password) {
+      nextErrors.confirmPassword = "Passwords do not match.";
+    }
+
+    return nextErrors;
+  };
+
+  const handleSignupSubmit = (e) => {
+    e.preventDefault();
+    const nextErrors = validateForm();
+    setErrors(nextErrors);
+  };
 
   return (
-    <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+    <form className="space-y-4" onSubmit={handleSignupSubmit} noValidate>
       <div>
         <label className="mb-1 block text-sm font-medium text-gray-700">Full Name</label>
         <input
@@ -59,9 +130,9 @@ const SignupForm = () => {
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
           placeholder="Your name"
-          className={inputBaseClass}
-          required
+          className={`${inputBaseClass} ${errors.fullName ? inputErrorClass : ""}`}
         />
+        {errors.fullName ? <p className={errorTextClass}>{errors.fullName}</p> : null}
       </div>
 
       <div>
@@ -71,9 +142,9 @@ const SignupForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
-          className={inputBaseClass}
-          required
+          className={`${inputBaseClass} ${errors.email ? inputErrorClass : ""}`}
         />
+        {errors.email ? <p className={errorTextClass}>{errors.email}</p> : null}
       </div>
 
       <div>
@@ -83,9 +154,9 @@ const SignupForm = () => {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="9876543210"
-          className={inputBaseClass}
-          required
+          className={`${inputBaseClass} ${errors.phone ? inputErrorClass : ""}`}
         />
+        {errors.phone ? <p className={errorTextClass}>{errors.phone}</p> : null}
       </div>
 
       <div>
@@ -95,9 +166,9 @@ const SignupForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Create a password"
-          className={inputBaseClass}
-          required
+          className={`${inputBaseClass} ${errors.password ? inputErrorClass : ""}`}
         />
+        {errors.password ? <p className={errorTextClass}>{errors.password}</p> : null}
       </div>
 
       <div>
@@ -107,9 +178,11 @@ const SignupForm = () => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="Re-enter password"
-          className={inputBaseClass}
-          required
+          className={`${inputBaseClass} ${errors.confirmPassword ? inputErrorClass : ""}`}
         />
+        {errors.confirmPassword ? (
+          <p className={errorTextClass}>{errors.confirmPassword}</p>
+        ) : null}
       </div>
 
       <button
